@@ -3,27 +3,43 @@ import './App.css';
 import {v4 as uuidv4} from 'uuid';
 import Employee from './components/Employee'
 import { useState } from 'react';
+import AddEmployee from './components/AddEmployee';
+import EditEmployee from './components/EditEmployee';
 function App() {
   const showEmployees = true;
   const [role, setRole] = useState('dev');
   const [employees, setEmployees] = useState(
     [
-    {name: 'Caleb',
-    role: 'Youtube Sensation',
-    img: 'https://images.pexels.com/photos/17993439/pexels-photo-17993439/free-photo-of-wood-bench-light-city.jpeg'
+    {   id:1,
+        name: 'Caleb',
+        role: 'Youtube Sensation',
+        img: 'https://images.pexels.com/photos/17993439/pexels-photo-17993439/free-photo-of-wood-bench-light-city.jpeg'
     },
     {
-    name: 'Valerie',
-    role: 'Developer',
-    img: 'https://images.pexels.com/photos/17993439/pexels-photo-17993439/free-photo-of-wood-bench-light-city.jpeg'
+        id:2,
+        name: 'Valerie',
+        role: 'Developer',
+        img: 'https://images.pexels.com/photos/17993439/pexels-photo-17993439/free-photo-of-wood-bench-light-city.jpeg'
     },
     {
+      id:3,
       name: 'Jane',
       role: 'Stay at home mom',
       img: 'https://images.pexels.com/photos/17993439/pexels-photo-17993439/free-photo-of-wood-bench-light-city.jpeg'
     }
     ]
   );
+
+    function updateEmployee(id,newName,newRole){
+      const updateEmployees = employees.map((employee) => {
+        if(id == employee.id){
+          return {... employee, name: newName, role:newRole} //new object
+        }
+      });
+      setEmployees(updateEmployees);
+    }
+
+
   return (
     <div className='App bg-red-300'>
       {
@@ -35,15 +51,18 @@ function App() {
           />
           <div className='flex flex-wrap'>
             {employees.map((employee) => {
-              console.log(uuidv4())
               return(<Employee
-                key = {uuidv4()}
+                id = {employee.id}
                 name = {employee.name} 
                 role = {employee.role} 
-                img = {employee.img}/>
+                img = {employee.img}
+                updateEmployee = {updateEmployee}
+                />
                 );
             })}
           </div>
+          <Employee/>
+          <AddEmployee/>
           </>
         )
       :(
