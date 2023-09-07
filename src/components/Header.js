@@ -142,3 +142,5 @@ export default function Header(props) {
     </Disclosure>
   )
 }
+//props.children inserts every employee embedded within this header from App.js since employees was
+//surrounded by Header
